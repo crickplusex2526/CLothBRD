@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClothBRD | Fashion Sale</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#fffaf5;
+  color:#211b18;
+}
+
+header{
+  background:linear-gradient(135deg,#ff7a00,#ff9d32);
+  padding:22px 14px 35px;
+  text-align:center;
+}
+
+.header-box{
+  max-width:900px;
+  margin:auto;
+  background:white;
+  border-radius:0 0 35px 35px;
+  padding:25px 15px 30px;
+}
+
+.logo{
+  font-size:32px;
+  font-weight:900;
+  margin-bottom:10px;
+}
+
+.sale-title{
+  font-size:42px;
+  font-weight:900;
+  color:#ff6415;
+  line-height:1.05;
+}
+
+.sub-title{
+  margin-top:8px;
+  color:#666;
+  font-size:17px;
+}
+
+.features{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  max-width:650px;
+  margin:25px auto 0;
+}
+
+.feature{
+  background:#fff0e3;
+  border-radius:40px;
+  padding:16px 8px;
+  font-size:16px;
+  font-weight:700;
+}
+
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:35px 16px 70px;
+}
+
+.section-title{
+  font-size:32px;
+  font-weight:900;
+  margin:15px 0 5px;
+}
+
+.section-sub{
+  color:#777;
+  font-size:17px;
+  margin-bottom:22px;
+}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+}
+
+.card{
+  background:white;
+  border:2px solid #ffe0c5;
+  border-radius:24px;
+  overflow:hidden;
+  box-shadow:0 5px 18px rgba(0,0,0,.06);
+}
+
+.image-box{
+  height:330px;
+  background:#f4f4f4;
+  position:relative;
+  overflow:hidden;
+}
+
+.product-image{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.sale{
+  position:absolute;
+  top:14px;
+  left:14px;
+  background:#f13200;
+  color:white;
+  padding:11px 15px;
+  border-radius:14px;
+  font-weight:900;
+  font-size:15px;
+}
+
+.code{
+  position:absolute;
+  top:14px;
+  right:14px;
+  background:#111;
+  color:white;
+  padding:11px 14px;
+  border-radius:14px;
+  font-weight:900;
+}
+
+.details{
+  padding:18px;
+}
+
+.product-name{
+  font-size:21px;
+  font-weight:800;
+  line-height:1.2;
+  min-height:52px;
+}
+
+.price{
+  margin-top:10px;
+  font-size:27px;
+  font-weight:900;
+  color:#ef4c0b;
+}
+
+.old-price{
+  color:#999;
+  text-decoration:line-through;
+  font-size:17px;
+  margin-left:8px;
+  font-weight:600;
+}
+
+.info{
+  color:#666;
+  margin:10px 0 15px;
+  font-size:14px;
+}
+
+.order-btn{
+  width:100%;
+  border:0;
+  background:#000;
+  color:#fff;
+  padding:16px;
+  border-radius:16px;
+  font-size:18px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.order-btn:active{
+  transform:scale(.98);
+}
+
+.modal{
+  display:none;
+  position:fixed;
+  z-index:9999;
+  inset:0;
+  background:rgba(0,0,0,.65);
+  padding:15px;
+  overflow:auto;
+}
+
+.modal-box{
+  max-width:560px;
+  margin:25px auto;
+  background:white;
+  border-radius:25px;
+  padding:22px;
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
+}
+
+.modal-head h2{
+  font-size:24px;
+}
+
+.close{
+  border:0;
+  background:#eee;
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  font-size:24px;
+  cursor:pointer;
+}
+
+.selected{
+  background:#fff3e8;
+  border-radius:15px;
+  padding:14px;
+  margin-bottom:18px;
+}
+
+.selected strong{
+  display:block;
+  font-size:18px;
+}
+
+.selected span{
+  color:#e84b0a;
+  font-weight:900;
+}
+
+.form-group{
+  margin-bottom:13px;
+}
+
+label{
+  display:block;
+  font-weight:700;
+  margin-bottom:6px;
+}
+
+input,select,textarea{
+  width:100%;
+  padding:14px;
+  border:1px solid #ddd;
+  border-radius:12px;
+  font-size:16px;
+  outline:none;
+}
+
+input:focus,select:focus,textarea:focus{
+  border-color:#ff7100;
+}
+
+textarea{
+  min-height:80px;
+  resize:vertical;
+}
+
+.payment-options{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.payment-option{
+  border:2px solid #ddd;
+  border-radius:13px;
+  padding:13px;
+  text-align:center;
+  cursor:pointer;
+  font-weight:800;
+}
+
+.payment-option.active{
+  border-color:#ff6800;
+  background:#fff1e6;
+}
+
+.payment-option input{
+  display:none;
+}
+
+.upi-box{
+  display:none;
+  margin-top:15px;
+  background:#fff8ef;
+  border:1px solid #ffd4ae;
+  border-radius:15px;
+  padding:15px;
+}
+
+.upi-id{
+  font-weight:800;
+  word-break:break-all;
+  color:#222;
+}
+
+.pay-btn{
+  display:block;
+  width:100%;
+  text-align:center;
+  text-decoration:none;
+  background:#ff6500;
+  color:white;
+  padding:15px;
+  border-radius:13px;
+  font-weight:900;
+  margin-top:12px;
+}
+
+.utr{
+  margin-top:13px;
+}
+
+.submit-order{
+  width:100%;
+  border:0;
+  background:#000;
+  color:#fff;
+  padding:17px;
+  border-radius:14px;
+  font-size:18px;
+  font-weight:900;
+  cursor:pointer;
+  margin-top:5px;
+}
+
+.note{
+  font-size:12px;
+  color:#777;
+  margin-top:10px;
+  line-height:1.4;
+}
+
+footer{
+  background:#111;
+  color:white;
+  text-align:center;
+  padding:25px 15px;
+}
+
+@media(max-width:650px){
+  .sale-title{
+    font-size:34px;
+  }
+
+  .features{
+    gap:10px;
+  }
+
+  .feature{
+    font-size:14px;
+    padding:14px 5px;
+  }
+
+  .products{
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+  }
+
+  .image-box{
+    height:230px;
+  }
+
+  .details{
+    padding:12px;
+  }
+
+  .product-name{
+    font-size:17px;
+    min-height:42px;
+  }
+
+  .price{
+    font-size:22px;
+  }
+
+  .old-price{
+    font-size:13px;
+    display:block;
+    margin:3px 0 0;
+  }
+
+  .info{
+    font-size:12px;
+  }
+
+  .order-btn{
+    padding:13px 5px;
+    font-size:15px;
+  }
+
+  .sale,.code{
+    font-size:12px;
+    padding:8px 9px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-box">
+
+    <div class="logo">ClothBRD</div>
+
+    <div class="sale-title">60% OFF CLOTHING</div>
+
+    <div class="sub-title">
+      Fresh styles • Easy Return • Secure Order
+    </div>
+
+    <div class="features">
+      <div class="feature">💵 COD Available</div>
+      <div class="feature">💳 UPI Prepaid</div>
+      <div class="feature">🚚 3–4 Days Delivery</div>
+      <div class="feature">↩️ Easy Return</div>
+    </div>
+
+  </div>
+</header>
+
+
+<div class="container">
+
+  <!-- SHOES -->
+
+  <div class="section-title">👟 Shoes</div>
+  <div class="section-sub">Product codes 001–008</div>
+
+  <div class="products">
+
+    <div class="card">
+      <div class="image-box">
+        <img src="images/001.jpg" class="product-image" alt="Premium Running Shoes">
+        <div class="sale">SALE</div>
+        <div class="code">CODE 001</div>
+      </div>
+      <div class="details">
+        <div class="product-name">Premium Running Shoes</div>
+        <div class="price">₹1,800 <span class="old-price">₹4,000</span></div>
+        <div class="info">COD Available • Easy Return</div>
+        <button class="order-btn" onclick="openOrder('Premium Running Shoes','001',1800)">
+          Order Now
+        </button>
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="image-box">
+        <img src="images/002.jpg" class="product-image" alt="Air Cushion Sports Shoes">
+        <div class="sale">SALE</div>
+        <div class="code">CODE 002</div>
+      </div>
+      <div class="details">
+        <div class="product-name">Air Cushion Sports Shoes</div>
+        <div class="price">₹1,710 <span class="old-price">₹3,800</span></div>
+        <div class="info">COD Available • Easy Return</div>
+        <button class="order-btn" onclick="openOrder('Air Cushion Sports Shoes','002',1710)">
+          Order Now
+        </button>
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="image-box">
+        <img src="images/003.jpg" class="product-image" alt="Performance Sports Shoes">
+        <div class="sale">SALE</div>
+        <div class="code">CODE 003</div>
+      </div>
+      <div class="details">
+        <div class="product-name">Performance Sports Shoes</div>
+        <div class="price">₹1,800 <span class="old-price">₹4,000</span></div>
+        <div class="info">COD Available • Easy Return</div>
+        <button class="order-btn" onclick="openOrder('Performance Sports Shoes','003',1800)">
+          Order Now
+        </button>
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="image-box">
+        <img src="images/004.jpg" class="product-image" alt="Classic Running Shoes">
+        <div class="sale">SALE</div>
+        <div class="code">CODE 004</div>
+      </div>
+      <div class="details">
+        <div class="product-name">Classic Running Shoes</div>
+        <div class="price">₹1,200 <span class="old-price">₹3,000</span></div>
+        <div class="info">COD Available • Easy Return</div>
+        <button class="order-btn" onclick="openOrder('Classic Running Shoes','004',1200)">
+          Order Now
+        </button>
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="image-box">
+        <img src="images/005.jpg" class="product-image" alt="Urban Casual Shoes">
+        <div class="sale">SALE</div>
+        <div class="code">CODE 005</div>
+      </div>
+      <div class="details">
+        <div class="product-name">Urban Casual Shoes</div>
+        <div class="price">₹1,440 <span class="old-price">₹3,200</span></div>
+        <div class="info">COD Available • Easy Return</div>
+        <button class="order-btn" onclick="openOrder('Urban Casual Shoes','005',1440)">
+          Order Now
+        </button>
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="image-box">
+        <img src="images/006.jpg" class="product-image" alt="Premium Casual Shoes">
+        <div class="sale">SALE</div>
+        <div class="code">CODE 006</div>
+      </div>
+      <div class="details">
+        <div class="product-name">Premium Casual Shoes</div>
+        <div class="price">₹1,800 <span class="old-price">₹4,000</span></div>
+        <div class="info">COD Available • Easy Return</div>
+        <button class="order-btn" onclick="openOrder('Premium Casual Shoes','006',1800)">
+          Order Now
+        </button>
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="image-box">
+        <img src="images/007.jpg" class="product-image" alt="Fashion Sneakers">
+        <div class="sale">SALE</div>
+        <div class="code">CODE 007</div>
+      </div>
+      <div class="details">
+        <div class="product-name">Fashion Sneakers</div>
+        <div class="price">₹2,040 <span class="old-price">₹4,500</span></div>
+        <div class="info">COD Available • Easy Return</div>
+        <button class="order-btn" onclick="openOrder('Fashion Sneakers','007',2040)">
+          Order Now
+        </button>
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="image-box">
+        <img src="images/008.jpg" class="product-image" alt="Street Style Shoes">
+        <div class="sale">SALE</div>
+        <div class="code">CODE 008</div>
+      </div>
+      <div class="details">
+        <div class="product-name">Street Style Shoes</div>
+        <div class="price">₹1,380 <span class="old-price">₹3,000</span></div>
+        <div class="info">COD Available • Easy Return</div>
+        <button class="order-btn" onclick="openOrder('Street Style Shoes','008',1380)">
+          Order Now
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- CLOTHING -->
+
+  <div class="section-title" style="margin-top:45px;">👕 Clothing</div>
+  <div class="section-sub">Product codes 011–016</div>
+
+  <div class="products">
+
+    <div class="card">
+      <div class="image-box">
+        <img src="images/011.jpg" class="product-image" alt="Premium Shirt and Jeans Set">
+        <div class="sale">60% OFF</div>
+        <div class="code">CODE 011</div>
+      </div>
+      <div class="details">
+        <div class="product-name">Premium Shirt & Jeans Set</div>
+        <div class="price">₹1,120 <span class="old-price">₹2,800</span></div>
+        <div class="info">COD Available • Easy Return</div>
+        <button class="order-btn" onclick="openOrder('Premium Shirt & Jeans Set','011',1120)">
+          Order Now
+        </button>
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="image-box">
+        <img src="images/012.jpg" class="product-image" alt="Orange Sports Set">
+        <div class="sale">60% OFF</div>
+        <div class="code">CODE 012</div>
+      </div>
+      <div class="details">
+        <div class="product-name">Orange Sports Set</div>
+        <div class="price">₹880 <span class="old-price">₹2,200</span></div>
+        <div class="info">COD Available • Easy Return</div>
+        <button class="order-btn" onclick="openOrder('Orange Sports Set','012',880)">
+          Order Now
+        </button>
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="image-box">
+        <img src="images/013.jpg" class="product-image" alt="Shadow Half Zip Set">
+        <div class="sale">60% OFF</div>
+        <div class="code">CODE 013</div>
+      </div>
+      <div class="details">
+        <div class="product-name">Shadow Half Zip Set</div>
+        <div class="price">₹1,200 <span class="old-price">₹3,000</span></div>
+        <div class="info">COD Available • Easy Return</div>
+        <button class="order-btn" onclick="openOrder('Shadow Half Zip Set','013',1200)">
+          Order Now
+        </button>
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="image-box">
+        <img src="images/014.jpg" class="product-image" alt="Black Graphic Set">
+        <div class="sale">60% OFF</div>
+        <div class="code">CODE 014</div>
+      </div>
+      <div class="details">
+        <div class="product-name">Black Graphic Set</div>
+        <div class="price">₹800 <span class="old-price">₹2,000</span></div>
+        <div class="info">COD Available • Easy Return</div>
+        <button class="order-btn" onclick="openOrder('Black Graphic Set','014',800)">
+          Order Now
+        </button>
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="image-box">
+        <img src="images/015.jpg" class="product-image" alt="Vintage Denim Set">
+        <div class="sale">60% OFF</div>
+        <div class="code">CODE 015</div>
+      </div>
+      <div class="details">
+        <div class="product-name">Vintage Denim Set</div>
+        <div class="price">₹960 <span class="old-price">₹2,400</span></div>
+        <div class="info">COD Available • Easy Return</div>
+        <button class="order-btn" onclick="openOrder('Vintage Denim Set','015',960)">
+          Order Now
+        </button>
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="image-box">
+        <img src="images/016.jpg" class="product-image" alt="Classic Jacket and Jeans">
+        <div class="sale">60% OFF</div>
+        <div class="code">CODE 016</div>
+      </div>
+      <div class="details">
+        <div class="product-name">Classic Jacket & Jeans</div>
+        <div class="price">₹1,200 <span class="old-price">₹3,000</span></div>
+        <div class="info">COD Available • Easy Return</div>
+        <button class="order-btn" onclick="openOrder('Classic Jacket & Jeans','016',1200)">
+          Order Now
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ORDER MODAL -->
+
+<div class="modal" id="orderModal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+      <h2>Place Your Order</h2>
+      <button class="close" onclick="closeOrder()">×</button>
+    </div>
+
+    <div class="selected">
+      <strong id="selectedProduct"></strong>
+      Code: <span id="selectedCode"></span>
+      <br>
+      Total: <span id="selectedPrice"></span>
+    </div>
+
+
+    <div class="form-group">
+      <label>Full Name</label>
+      <input id="customerName" type="text" placeholder="Enter your name">
+    </div>
+
+
+    <div class="form-group">
+      <label>Mobile Number</label>
+      <input id="customerPhone" type="tel" maxlength="10" placeholder="10 digit mobile number">
+    </div>
+
+
+    <div class="form-group">
+      <label>Full Address</label>
+      <textarea id="customerAddress" placeholder="House / Street / Area"></textarea>
+    </div>
+
+
+    <div class="form-group">
+      <label>City</label>
+      <input id="customerCity" type="text" placeholder="City">
+    </div>
+
+
+    <div class="form-group">
+      <label>Pincode</label>
+      <input id="customerPincode" type="tel" maxlength="6" placeholder="6 digit pincode">
+    </div>
+
+
+    <div class="form-group">
+      <label>Payment Method</label>
+
+      <div class="payment-options">
+
+        <label class="payment-option active" id="codOption">
+          <input type="radio" name="payment" value="COD" checked onchange="paymentChanged()">
+          💵 COD
+        </label>
+
+        <label class="payment-option" id="prepaidOption">
+          <input type="radio" name="payment" value="Prepaid" onchange="paymentChanged()">
+          💳 Prepaid
+        </label>
+
+      </div>
+    </div>
+
+
+    <!-- UPI -->
+
+    <div class="upi-box" id="upiBox">
+
+      <div style="font-weight:900;margin-bottom:7px;">
+        Prepaid UPI Payment
+      </div>
+
+      <div style="font-size:14px;margin-bottom:7px;">
+        UPI ID:
+      </div>
+
+      <div class="upi-id">
+        BHARATPE.9J0M0Y1G1S693577@unitype
+      </div>
+
+      <a id="upiPayButton"
+         class="pay-btn"
+         href="#">
+         Pay ₹0 via UPI
+      </a>
+
+      <div class="utr">
+        <label>UTR / Transaction ID</label>
+        <input id="utrNumber"
+               type="text"
+               placeholder="Payment ke baad UTR number dalein">
+      </div>
+
+      <div class="note">
+        Pay button dabane par phone ka available UPI app open hoga
+        aur order amount automatically fill hoga.
+      </div>
+
+    </div>
+
+
+    <button class="submit-order" onclick="sendOrder()">
+      Place Order on WhatsApp
+    </button>
+
+    <div class="note">
+      Order details WhatsApp par automatically send hongi.
+    </div>
+
+  </div>
+
+</div>
+
+
+<footer>
+  <strong>ClothBRD</strong>
+  <br><br>
+  Secure Order • COD Available • UPI Prepaid • Easy Return
+</footer>
+
+
+<script>
+
+let selectedProduct = "";
+let selectedCode = "";
+let selectedPrice = 0;
+
+
+/* YOUR WHATSAPP NUMBER */
+const whatsappNumber = "918320651288";
+
+
+/* YOUR UPI ID */
+const upiId = "BHARATPE.9J0M0Y1G1S693577@unitype";
+
+
+function openOrder(product, code, price){
+
+  selectedProduct = product;
+  selectedCode = code;
+  selectedPrice = price;
+
+  document.getElementById("selectedProduct").innerText = product;
+  document.getElementById("selectedCode").innerText = code;
+  document.getElementById("selectedPrice").innerText =
+    "₹" + price.toLocaleString("en-IN");
+
+  document.getElementById("orderModal").style.display = "block";
+
+  document.body.style.overflow = "hidden";
+
+  updateUPILink();
+}
+
+
+function closeOrder(){
+
+  document.getElementById("orderModal").style.display = "none";
+
+  document.body.style.overflow = "auto";
+}
+
+
+function paymentChanged(){
+
+  const prepaid =
+    document.querySelector('input[name="payment"]:checked').value === "Prepaid";
+
+  document.getElementById("upiBox").style.display =
+    prepaid ? "block" : "none";
+
+  document.getElementById("codOption").classList.toggle(
+    "active",
+    !prepaid
+  );
+
+  document.getElementById("prepaidOption").classList.toggle(
+    "active",
+    prepaid
+  );
+
+  updateUPILink();
+}
+
+
+function updateUPILink(){
+
+  const upiLink =
+    "upi://pay" +
+    "?pa=" + encodeURIComponent(upiId) +
+    "&pn=" + encodeURIComponent("ClothBRD") +
+    "&am=" + encodeURIComponent(selectedPrice) +
+    "&cu=INR" +
+    "&tn=" + encodeURIComponent(
+      "ClothBRD Order " + selectedCode
+    );
+
+  const button =
+    document.getElementById("upiPayButton");
+
+  button.href = upiLink;
+
+  button.innerText =
+    "Pay ₹" +
+    selectedPrice.toLocaleString("en-IN") +
+    " via UPI";
+}
+
+
+function sendOrder(){
+
+  const name =
+    document.getElementById("customerName").value.trim();
+
+  const phone =
+    document.getElementById("customerPhone").value.trim();
+
+  const address =
+    document.getElementById("customerAddress").value.trim();
+
+  const city =
+    document.getElementById("customerCity").value.trim();
+
+  const pincode =
+    document.getElementById("customerPincode").value.trim();
+
+  const payment =
+    document.querySelector(
+      'input[name="payment"]:checked'
+    ).value;
+
+  const utr =
+    document.getElementById("utrNumber").value.trim();
+
+
+  if(!name){
+    alert("Please enter your name.");
+    return;
+  }
+
+  if(!/^[0-9]{10}$/.test(phone)){
+    alert("Please enter valid 10 digit mobile number.");
+    return;
+  }
+
+  if(!address){
+    alert("Please enter your address.");
+    return;
+  }
+
+  if(!city){
+    alert("Please enter your city.");
+    return;
+  }
+
+  if(!/^[0-9]{6}$/.test(pincode)){
+    alert("Please enter valid 6 digit pincode.");
+    return;
+  }
+
+
+  if(payment === "Prepaid" && !utr){
+
+    alert("Please enter UTR / Transaction ID after payment.");
+
+    return;
+  }
+
+
+  let message = "";
+
+  message += "🛍️ *NEW CLOTHBRD ORDER*";
+  message += "\n\n";
+
+  message += "*Product:* " + selectedProduct;
+  message += "\n";
+
+  message += "*Product Code:* " + selectedCode;
+  message += "\n";
+
+  message += "*Amount:* ₹" +
+    selectedPrice.toLocaleString("en-IN");
+
+  message += "\n\n";
+
+  message += "*CUSTOMER DETAILS*";
+  message += "\n";
+
+  message += "Name: " + name;
+  message += "\n";
+
+  message += "Mobile: " + phone;
+  message += "\n";
+
+  message += "Address: " + address;
+  message += "\n";
+
+  message += "City: " + city;
+  message += "\n";
+
+  message += "Pincode: " + pincode;
+  message += "\n\n";
+
+  message += "*PAYMENT*";
+  message += "\n";
+
+  message += "Method: " + payment;
+  message += "\n";
+
+  if(payment === "Prepaid"){
+    message += "UTR: " + utr;
+    message += "\n";
+  }
+
+  message += "\n";
+  message += "Please confirm my order.";
+
+  const whatsappURL =
+    "https://wa.me/" +
+    whatsappNumber +
+    "?text=" +
+    encodeURIComponent(message);
+
+  window.location.href = whatsappURL;
+}
+
+
+window.onclick = function(event){
+
+  const modal =
+    document.getElementById("orderModal");
+
+  if(event.target === modal){
+    closeOrder();
+  }
+
+};
+
+</script>
+
+</body>
+</html>
